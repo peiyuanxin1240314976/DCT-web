@@ -1,0 +1,12 @@
+---
+description: Taro components, styles, and path aliases for reuse
+globs: "**/*.{ts,tsx,css}"
+alwaysApply: false
+---
+
+# 组件与复用
+
+- 通用 UI 放在 `src/components/<Name>/`：同目录下放 `Name.tsx` + `Name.css`，在 `src/components/index.ts` 导出。
+- 页面只编排业务；可复用块抽成组件或 `hooks/`，避免页面内复制粘贴大段 JSX。
+- 样式：优先组件级 CSS；BEM 类名示例 `block__element`；避免全局污染，慎用 `app.css`。
+- 路径别名使用 `@/` 指向 `src/`（见 `tsconfig.json`），引用组件用 `@/components`。

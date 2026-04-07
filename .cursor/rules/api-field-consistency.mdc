@@ -1,0 +1,11 @@
+---
+description: Keep TS types and API client fields consistent with Java ApiResponse
+globs: "**/*.{ts,tsx}"
+alwaysApply: false
+---
+
+# 与后端字段一致
+
+- `src/api/types.ts` 中的 `ApiResponse<T>` 必须与后端 `ApiResponse` JSON 字段一致：`success`、`code`、`message`、`data`。
+- 业务 DTO 命名与后端 DTO/Java record **同名同义**（camelCase）；新增接口先定字段表再写类型，避免前后端各写一套。
+- 请求/响应类型放在 `src/api/types` 或按领域分子文件，通过 `index.ts` 聚合导出，页面只 import 类型不手写重复 interface。
