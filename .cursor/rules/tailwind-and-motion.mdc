@@ -1,0 +1,47 @@
+---
+description: Tailwind-first styling + motion/typing/skeleton/lazyload standards for Taro weapp
+globs: "**/*.{ts,tsx,css}"
+alwaysApply: false
+---
+
+# 样式：Tailwind 优先
+
+- **默认用 Tailwind 工具类写样式**（`className`），避免新增页面级 `.css` 文件。
+- 允许保留的自定义 CSS 仅限：
+  - 主题变量：`src/styles/theme.css`
+  - 轻量动效：`src/styles/motion.css`
+  - 第三方动画样式：`animate.css`、`hint.css`、`src/styles/vendor/magic.min.css`
+- 若必须写自定义样式：只能追加到 `src/styles/` 的公共文件中，并确保可复用，不要在页面目录里新建 `index.css`。
+
+# 主题
+
+- 使用 `PageContainer` 包裹页面，保证 `theme-*` 生效（CSS Variables）。
+- Tailwind 中允许用 `bg-[...]` / `text-[...]` 绑定变量（如 `bg-brand`、`text-text`、`text-muted`）。
+
+# 动画与交互（必须遵守）
+
+## 下钻动画（地图）
+- 点击省份后：先对地图容器加 200–300ms 的轻动画（建议 `animate.css` 或 `magic.css` 类），再 `navigateTo`。
+- 动画优先使用 `transform/opacity`，避免 height/left/top 连续变化。
+
+## 转场动画（页面级）
+- 页面首屏元素使用 `animate__animated` + `animate__fadeInUp` 等轻量入场即可。
+- 禁止在列表里给每一项都挂重动画库（会掉帧）。
+
+## 点击互动
+- 可点击区域必须有 `active:opacity-85` 或等价反馈；避免无反馈的跳转。
+
+## 展开动画（折叠/详情）
+- 使用 `max-h` + `opacity` 组合或分段渲染；优先渐显/位移，不做复杂弹簧。
+
+# AI 打字文案
+
+- 解释/说明地区特色的长文案统一用 `TypingText`（`cps` 可调）。
+- 打字内容必须可中断（页面卸载自动停止），不得造成内存泄漏。
+
+# 懒加载与骨架屏
+
+- 所有网络页必须有 `loading` 状态；默认先显示 `Skeleton`（自定义骨架块）。
+- 图片使用 `Image` 的 `lazyLoad`，列表页避免一次性渲染过多重组件。
+- 大依赖（ECharts/地图）必须在分包 `packageMap`，避免影响主包首屏。
+

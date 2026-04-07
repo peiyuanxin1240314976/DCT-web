@@ -1,7 +1,39 @@
 import { defineConfig, type UserConfigExport } from '@tarojs/cli'
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
+import path from 'node:path'
+import { UnifiedWebpackPluginV5 } from 'weapp-tailwindcss/webpack'
 import devConfig from './dev'
 import prodConfig from './prod'
+
+function applySharedWebpackChain(
+  chain: { merge: (arg: unknown) => void; resolve: { plugin: (name: string) => { use: (plugin: unknown) => void } } },
+  rem2rpx: boolean
+) {
+  chain.merge({
+    plugin: {
+      weappTailwindcss: {
+        plugin: UnifiedWebpackPluginV5,
+        args: [
+          {
+            rem2rpx,
+            cssEntries: [path.resolve(__dirname, '../src/app.css')]
+          }
+        ]
+      }
+    },
+    // Filter known noisy warnings from upstream plugin/loader dependency tracking.
+    // Keep other warnings untouched.
+    ignoreWarnings: [
+      {
+        message: /Invalid dependencies have been reported by plugins or loaders/
+      },
+      {
+        message: /All reported dependencies need to be absolute paths/
+      }
+    ]
+  })
+  chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+}
 
 export default defineConfig<'webpack5'>(async (merge) => {
   const baseConfig: UserConfigExport<'webpack5'> = {
@@ -17,7 +49,9 @@ export default defineConfig<'webpack5'>(async (merge) => {
     sourceRoot: 'src',
     outputRoot: 'dist',
     plugins: ['@tarojs/plugin-generator'],
-    defineConstants: {},
+    defineConstants: {
+      __API_BASE__: JSON.stringify(process.env.TARO_APP_API_BASE ?? 'http://127.0.0.1:8080')
+    },
     copy: {
       patterns: [],
       options: {}
@@ -42,7 +76,7 @@ export default defineConfig<'webpack5'>(async (merge) => {
         }
       },
       webpackChain(chain) {
-        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+        applySharedWebpackChain(chain, true)
       }
     },
     h5: {
@@ -71,7 +105,7 @@ export default defineConfig<'webpack5'>(async (merge) => {
         }
       },
       webpackChain(chain) {
-        chain.resolve.plugin('tsconfig-paths').use(TsconfigPathsPlugin)
+        applySharedWebpackChain(chain, false)
       }
     },
     rn: {

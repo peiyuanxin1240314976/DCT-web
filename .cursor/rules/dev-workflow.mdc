@@ -1,0 +1,10 @@
+---
+description: Follow workspace docs/DESIGN_PROCESS.md for features and API changes
+globs: "**/*"
+alwaysApply: false
+---
+
+# 设计与开发顺序
+
+- 新功能先阅读工作区 `docs/DESIGN_PROCESS.md` 与 `docs/P0_PLAN.md`（若仓库为分体克隆，请将 `docs` 与代码置于同一工作区或自行同步文档）。
+- 接口字段与 `docs/API_P0.md`、`src/api/types.ts` 保持一致。

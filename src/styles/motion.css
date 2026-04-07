@@ -1,0 +1,58 @@
+/**
+ * 动画以 transform / opacity 为主，避免频繁触发布局（layout），减轻小程序渲染压力。
+ */
+
+@keyframes motion-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 16px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes motion-float-soft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes motion-pulse-scale {
+  0%,
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.03, 1.03, 1);
+  }
+}
+
+.motion-fade-in-up {
+  animation: motion-fade-in-up 0.55s ease-out both;
+}
+
+.motion-float-soft {
+  animation: motion-float-soft 3.2s ease-in-out infinite;
+}
+
+.motion-pulse-scale {
+  animation: motion-pulse-scale 2.4s ease-in-out infinite;
+}
+
+.motion-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.motion-delay-2 {
+  animation-delay: 0.16s;
+}
+
+.motion-delay-3 {
+  animation-delay: 0.24s;
+}

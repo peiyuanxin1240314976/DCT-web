@@ -18,3 +18,5 @@ declare namespace NodeJS {
     TARO_APP_ID: string;
   }
 }
+
+declare const __API_BASE__: string;

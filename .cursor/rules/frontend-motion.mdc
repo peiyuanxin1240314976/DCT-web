@@ -1,0 +1,12 @@
+---
+description: CSS-first motion and chart performance for Taro weapp
+globs: "**/*.{tsx,css}"
+alwaysApply: false
+---
+
+# 动画与地图性能
+
+- 优先 **CSS**（`transform` / `opacity`）与小程序原生能力；避免在滚动主线程跑重型 JS 动画库。
+- **ECharts** 使用 `echarts/core` 按需引入；地图页放在 **分包** `packageMap` 减小主包。
+- 地图 GeoJSON 走网络时，需在小程序后台配置 **request 合法域名**（如 `https://geo.datav.aliyun.com`）。
+- 勿在 `useLoad` 的非页面组件里拉数据；组件内用 `useEffect` 或页面级 `useLoad`。

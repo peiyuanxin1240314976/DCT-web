@@ -1,0 +1,50 @@
+/* Theme tokens (CSS variables).
+   Pages/Components should consume variables, never hard-code colors. */
+
+.app {
+  /* Base tokens */
+  --bg: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --card: rgba(255, 255, 255, 0.88);
+  --shadow: 0 10px 36px rgba(15, 23, 42, 0.12);
+
+  /* Brand */
+  --brand: #1677ff;
+  --brand-2: #22d3ee;
+
+  /* Accent */
+  --accent-warm: #fef3c7;
+  --accent-cool: #e0f2fe;
+  --danger: #b91c1c;
+}
+
+/* Theme: Zen (calm blue-green) */
+.theme-zen {
+  --brand: #06b6d4;
+  --brand-2: #22c55e;
+  --accent-warm: #cffafe;
+  --accent-cool: #ecfeff;
+  --shadow: 0 12px 40px rgba(6, 182, 212, 0.12);
+}
+
+/* Theme: Sunrise (warm, energetic) */
+.theme-sunrise {
+  --brand: #f97316;
+  --brand-2: #f59e0b;
+  --accent-warm: #ffedd5;
+  --accent-cool: #fff7ed;
+  --shadow: 0 12px 40px rgba(249, 115, 22, 0.14);
+}
+
+/* Theme: Youth (playful) */
+.theme-youth {
+  --brand: #ff6b6b;
+  --brand-2: #38bdf8;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent-warm: #ffe4e6;
+  --accent-cool: #e0f2fe;
+  --shadow: 0 12px 42px rgba(255, 107, 107, 0.18);
+}
+
