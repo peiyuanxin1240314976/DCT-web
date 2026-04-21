@@ -36,6 +36,7 @@ function applySharedWebpackChain(
 }
 
 export default defineConfig<'webpack5'>(async (merge) => {
+  const outputRoot = process.env.TARO_ENV === 'weapp' ? 'dist-weapp' : 'dist'
   const baseConfig: UserConfigExport<'webpack5'> = {
     projectName: 'temple-miniapp',
     date: '2026-4-7',
@@ -47,7 +48,7 @@ export default defineConfig<'webpack5'>(async (merge) => {
       828: 1.81 / 2
     },
     sourceRoot: 'src',
-    outputRoot: 'dist',
+    outputRoot,
     plugins: ['@tarojs/plugin-generator'],
     defineConstants: {
       __API_BASE__: JSON.stringify(process.env.TARO_APP_API_BASE ?? 'http://127.0.0.1:8080')

@@ -8,7 +8,11 @@ export default {
   subPackages: [
     {
       root: 'packageMap',
-      pages: ['pages/map/index', 'pages/map/province/index']
+      pages: ['pages/map/index']
+    },
+    {
+      root: 'packageProvince',
+      pages: ['pages/map/province/index']
     }
   ],
   window: {

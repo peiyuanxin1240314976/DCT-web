@@ -5,6 +5,8 @@ export default {
     quiet: false,
     stats: true
   },
-  mini: {},
+  mini: {
+    sourceMap: false
+  },
   h5: {}
 } satisfies UserConfigExport<'webpack5'>
